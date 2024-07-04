@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: 'Customer'
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+      dialect: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: jdbc:mariadb://localhost:3306/aws_project01
+    #url: jdbc:mysql://localhost:3307/user_service?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: root
+    password: example
+
+aws:
+  region: 'us-east-1'
+  sns:
+    topic:
+      product:
+        events:
+          arn: 'product-events'
