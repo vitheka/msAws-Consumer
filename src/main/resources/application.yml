@@ -3,15 +3,14 @@ spring:
     name: 'Customer'
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
-      dialect: org.hibernate.dialect.MySQLDialect
+      dialect: org.hibernate.dialect.MariaDBDialect
   datasource:
-    url: jdbc:mariadb://localhost:3306/aws_project01
-    #url: jdbc:mysql://localhost:3307/user_service?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+    url: jdbc:mariadb://localhost:3308/customerdb?createDatabaseIfNotExist=true
     username: root
-    password: example
+    password: ${DB_PASSWORD:mariadbrootPW}
 
 aws:
   region: 'us-east-1'

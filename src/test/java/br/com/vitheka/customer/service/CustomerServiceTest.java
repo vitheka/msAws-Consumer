@@ -26,6 +26,9 @@ class CustomerServiceTest {
     @Mock
     private CustomerRepository customerRepository;
 
+    @Mock
+    private ConsumerPublisher consumerPublisher;
+
     @InjectMocks
     private CustomerService customerService;
 
@@ -77,6 +80,5 @@ class CustomerServiceTest {
                 .isInstanceOf(EmailAlreadyInUse.class);
 
     }
-
 
 }
