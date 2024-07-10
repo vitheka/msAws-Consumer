@@ -27,7 +27,7 @@ class CustomerServiceTest {
     private CustomerRepository customerRepository;
 
     @Mock
-    private ConsumerPublisher consumerPublisher;
+    private CostumerPublisher costumerPublisher;
 
     @InjectMocks
     private CustomerService customerService;

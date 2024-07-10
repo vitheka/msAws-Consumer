@@ -4,6 +4,7 @@ import br.com.vitheka.customer.entity.Customer;
 import br.com.vitheka.customer.model.Envelope;
 import br.com.vitheka.customer.model.ProductEvent;
 import com.amazonaws.services.sns.AmazonSNS;
+import com.amazonaws.services.sns.model.PublishResult;
 import com.amazonaws.services.sns.model.Topic;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,13 +15,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Log4j2
-public class ConsumerPublisher {
+public class CostumerPublisher {
 
     private AmazonSNS snsClient;
     private Topic productEventsTopic;
     private ObjectMapper objectMapper;
 
-    public ConsumerPublisher(AmazonSNS snsClient,
+    public CostumerPublisher(AmazonSNS snsClient,
                              @Qualifier("productEventsTopic") Topic productEventsTopic,
                              ObjectMapper objectMapper) {
 
@@ -29,7 +30,7 @@ public class ConsumerPublisher {
         this.objectMapper = objectMapper;
     }
 
-    public void publishConsumerEvent(Customer customerIn, EventType eventType, String username) {
+    public void publishCostumerEvent(Customer customerIn, EventType eventType, String username) {
 
         var productEvent = ProductEvent.builder()
                 .customerId(customerIn.getCustomerId())
@@ -43,10 +44,12 @@ public class ConsumerPublisher {
                     .data(objectMapper.writeValueAsString(productEvent))
                     .build();
 
-            snsClient.publish(
+            PublishResult publishResult = snsClient.publish(
                     productEventsTopic.getTopicArn(),
                     objectMapper.writeValueAsString(envelope)
             );
+
+            log.info("Message ID: " + publishResult.getMessageId());
 
         } catch (JsonProcessingException e) {
             log.error("Erro ao converter para Json");

@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: 'marketingStrategy'
+server:
+  port: 9090
+
+aws:
+  region: 'us-east-1'
+  sqs:
+    queue:
+      product:
+        events:
+          name: 'product-events'

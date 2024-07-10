@@ -100,6 +100,12 @@
 			<version>${aws-java-sdk-sns.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-sqs</artifactId>
+			<version>1.11.887</version>
+		</dependency>
+
 
 		<!--TEST -->
 

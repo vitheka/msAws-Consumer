@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final ConsumerPublisher consumerPublisher;
+    private final CostumerPublisher costumerPublisher;
 
     public Customer saveCustomer(Customer customerIn) {
 
@@ -22,7 +22,7 @@ public class CustomerService {
 
         var customerSaved = customerRepository.save(customerIn);
 
-        consumerPublisher.publishConsumerEvent(customerSaved, EventType.CUSTOMER_CREATED, "atendente");
+        costumerPublisher.publishCostumerEvent(customerSaved, EventType.CUSTOMER_CREATED, "atendente");
 
         return customerSaved;
     }
