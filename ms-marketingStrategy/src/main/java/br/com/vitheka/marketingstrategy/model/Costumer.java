@@ -1,52 +1,39 @@
 package br.com.vitheka.marketingstrategy.model;
 
 import br.com.vitheka.marketingstrategy.enums.EventType;
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
-import org.springframework.data.annotation.Id;
-
-@DynamoDBTable(tableName = "costumer-events")
-public class CostumerEventLog {
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 
 
-    public CostumerEventLog() {} //constructor empty
+@DynamoDbBean
+public class Costumer {
 
-    @Id
-    private CostumerEventKey costumerEventKey;
+    private String pk;
+    private String sk;
 
-    @DynamoDBTypeConvertedEnum
-    @DynamoDBAttribute(attributeName = "eventType")
     private EventType eventType;
-    @DynamoDBAttribute(attributeName = "costumerId")
     private long costumerId;
-    @DynamoDBAttribute(attributeName = "username")
     private String username;
-    @DynamoDBAttribute(attributeName = "timestamp")
     private long timestamp;
-    @DynamoDBAttribute(attributeName = "ttl")
     private long ttl;
 
-    @DynamoDBHashKey(attributeName = "pk")
+    @DynamoDbPartitionKey
     public String getPk() {
-        return this.costumerEventKey != null ? this.costumerEventKey.getPk() : null;
+        return pk;
     }
 
     public void setPk(String pk) {
-        if (this.costumerEventKey == null) {
-            this.costumerEventKey = new CostumerEventKey();
-        }
-        this.costumerEventKey.setPk(pk);
+        this.pk = pk;
     }
 
-    @DynamoDBRangeKey(attributeName = "sk")
+    @DynamoDbSortKey
     public String getSk() {
-        return this.costumerEventKey != null ? this.costumerEventKey.getSk() : null;
+        return sk;
     }
 
     public void setSk(String sk) {
-        if (this.costumerEventKey == null) {
-            this.costumerEventKey = new CostumerEventKey();
-        }
-        this.costumerEventKey.setSk(sk);
+        this.sk = sk;
     }
 
     public EventType getEventType() {
